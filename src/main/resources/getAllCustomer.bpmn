@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_18nmwe8" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.5.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
+  <bpmn:process id="getCustomer" name="getCustomer" isExecutable="true">
+    <bpmn:startEvent id="startBookCamunda" name="Start">
+      <bpmn:outgoing>Flow_1is6bv0</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="getAllCustomer" name="GetAllCustomer()" camunda:delegateExpression="${delegateGetAllCustomer}">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_1is6bv0</bpmn:incoming>
+      <bpmn:outgoing>Flow_0m07y2e</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1q9dltq">
+        <bpmn:targetRef>bookShopDB</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0lmsa7k" name="finish">
+      <bpmn:incoming>Flow_1g21kft</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1is6bv0" sourceRef="startBookCamunda" targetRef="getAllCustomer" />
+    <bpmn:sequenceFlow id="Flow_0m07y2e" sourceRef="getAllCustomer" targetRef="Gateway_1w86qli" />
+    <bpmn:exclusiveGateway id="Gateway_1w86qli" name="IsValid">
+      <bpmn:incoming>Flow_0m07y2e</bpmn:incoming>
+      <bpmn:outgoing>Flow_1g21kft</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1g21kft" name="True" sourceRef="Gateway_1w86qli" targetRef="Event_0lmsa7k" />
+    <bpmn:dataStoreReference id="bookShopDB" name="BookShopDB" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="getCustomer">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="startBookCamunda">
+        <dc:Bounds x="152" y="239" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="158" y="250" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_11wwirn_di" bpmnElement="getAllCustomer">
+        <dc:Bounds x="230" y="217" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0lmsa7k_di" bpmnElement="Event_0lmsa7k">
+        <dc:Bounds x="542" y="239" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="547" y="282" width="26" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1w86qli_di" bpmnElement="Gateway_1w86qli" isMarkerVisible="true">
+        <dc:Bounds x="375" y="232" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="386" y="289" width="31" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_0nihplo_di" bpmnElement="bookShopDB">
+        <dc:Bounds x="255" y="115" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="250" y="85" width="63" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1q9dltq_di" bpmnElement="DataOutputAssociation_1q9dltq">
+        <di:waypoint x="280" y="217" />
+        <di:waypoint x="280" y="165" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1is6bv0_di" bpmnElement="Flow_1is6bv0">
+        <di:waypoint x="188" y="257" />
+        <di:waypoint x="230" y="257" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0m07y2e_di" bpmnElement="Flow_0m07y2e">
+        <di:waypoint x="330" y="257" />
+        <di:waypoint x="375" y="257" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1g21kft_di" bpmnElement="Flow_1g21kft">
+        <di:waypoint x="425" y="257" />
+        <di:waypoint x="542" y="257" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="437" y="239" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
