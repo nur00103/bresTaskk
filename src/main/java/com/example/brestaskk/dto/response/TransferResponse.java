@@ -1,77 +1,60 @@
-package com.example.brestaskk.entity;
+package com.example.brestaskk.dto.response;
 
 import com.example.brestaskk.enums.CurrencyEnum;
 import com.example.brestaskk.enums.TransferStatusEnum;
 import com.example.brestaskk.enums.TransferTypeEnum;
-import javax.persistence.*;
-import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Entity
-@Table(name = "transfer")
-public class Transfer implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TransferResponse {
     private Long id;
 
-    @Column(name = "debitor_card_id")
     private Long debitorCardID;
 
-    @Column(name = "creditor_card_id")
     private Long creditorCardID;
 
-    @Column(name = "debitor_account_id")
     private Long debitorAccountID;
 
-    @Column(name = "creditor_account_id")
     private Long creditorAccountID;
 
-    @Column(name = "amount")
-    private BigDecimal amount;
+    private BigDecimal debitorAmount;
 
-    @Column(name = "debitor_currency",length = 3)
-    @Enumerated(EnumType.STRING)
     private CurrencyEnum debitorCurrency;
 
-    @Column(name = "creditor_currency",length = 3)
-    @Enumerated(EnumType.STRING)
+    private BigDecimal creditorAmount;
+
     private CurrencyEnum creditorCurrency;
 
-    @Column(name = "transfer_type")
-    @Enumerated(EnumType.ORDINAL)
     private TransferTypeEnum transferType;
 
-
-    @Column(name = "status")
-    @Enumerated(EnumType.ORDINAL)
     private TransferStatusEnum status;
 
+    private Integer active;
 
-    @Column(name = "active")
-    private Integer active=1;
+    private Date createDate;
 
-    @Column(name = "create_date")
-    private Date createDate= java.sql.Date.valueOf(LocalDate.now());
-
-    public Transfer() {
-    }
-
-    public Transfer(Long id, Long debitorCardID, Long creditorCardID, Long debitorAccountID, Long creditorAccountID, BigDecimal amount, CurrencyEnum debitorCurrency, CurrencyEnum creditorCurrency, TransferTypeEnum transferType, TransferStatusEnum status, Integer active, Date createDate) {
+    public TransferResponse(Long id, Long debitorCardID, Long creditorCardID, Long debitorAccountID, Long creditorAccountID, BigDecimal debitorAmount, CurrencyEnum debitorCurrency, BigDecimal creditorAmount, CurrencyEnum creditorCurrency, TransferTypeEnum transferType, TransferStatusEnum status, Integer active, Date createDate) {
         this.id = id;
         this.debitorCardID = debitorCardID;
         this.creditorCardID = creditorCardID;
         this.debitorAccountID = debitorAccountID;
         this.creditorAccountID = creditorAccountID;
+        this.debitorAmount = debitorAmount;
         this.debitorCurrency = debitorCurrency;
-        this.amount = amount;
+        this.creditorAmount = creditorAmount;
         this.creditorCurrency = creditorCurrency;
         this.transferType = transferType;
         this.status = status;
         this.active = active;
         this.createDate = createDate;
+    }
+
+    public TransferResponse() {
     }
 
     public Long getId() {
@@ -114,6 +97,14 @@ public class Transfer implements Serializable {
         this.creditorAccountID = creditorAccountID;
     }
 
+    public BigDecimal getDebitorAmount() {
+        return debitorAmount;
+    }
+
+    public void setDebitorAmount(BigDecimal debitorAmount) {
+        this.debitorAmount = debitorAmount;
+    }
+
     public CurrencyEnum getDebitorCurrency() {
         return debitorCurrency;
     }
@@ -122,13 +113,12 @@ public class Transfer implements Serializable {
         this.debitorCurrency = debitorCurrency;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public BigDecimal getCreditorAmount() {
+        return creditorAmount;
     }
 
-    public Transfer setAmount(BigDecimal amount) {
-        this.amount = amount;
-        return this;
+    public void setCreditorAmount(BigDecimal creditorAmount) {
+        this.creditorAmount = creditorAmount;
     }
 
     public CurrencyEnum getCreditorCurrency() {
@@ -173,14 +163,15 @@ public class Transfer implements Serializable {
 
     @Override
     public String toString() {
-        return "Transfer{" +
+        return "TransferResponse{" +
                 "id=" + id +
                 ", debitorCardID=" + debitorCardID +
                 ", creditorCardID=" + creditorCardID +
                 ", debitorAccountID=" + debitorAccountID +
                 ", creditorAccountID=" + creditorAccountID +
+                ", debitorAmount=" + debitorAmount +
                 ", debitorCurrency=" + debitorCurrency +
-                ", amoun=" + amount +
+                ", creditorAmount=" + creditorAmount +
                 ", creditorCurrency=" + creditorCurrency +
                 ", transferType=" + transferType +
                 ", status=" + status +

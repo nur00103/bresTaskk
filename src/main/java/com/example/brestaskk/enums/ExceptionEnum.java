@@ -8,6 +8,8 @@ public enum ExceptionEnum {
     CARD_NOT_FOUND(413,"Card not found with this id!"),
     BALANCE_NOT_FOUND(414,"The balance of the card cannot exceed the account"),
 
+    INSUFFICIENT_BALANCE(415,"Insufficient balance"),
+
     VALIDATION(402,"Validation error"),
 
     INPUT(406,"ID cannot be null and string.Please enter number"),
